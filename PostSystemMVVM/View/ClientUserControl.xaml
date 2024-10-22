@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="PostSystemMVVM.View.ClientUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PostSystemMVVM.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!-- DataGrid for Clients -->
+        <DataGrid ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" AutoGenerateColumns="True" 
+                  IsReadOnly="False" CanUserAddRows="False" />
+
+        <!-- Command Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,0">
+            <Button Command="{Binding AddClientCommand}" Content="Add Client" Width="100" Margin="5"/>
+            <Button Command="{Binding EditClientCommand}" Content="Edit Client" Width="100" Margin="5"/>
+            <Button Command="{Binding RemoveClientCommand}" Content="Remove Client" Width="100" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

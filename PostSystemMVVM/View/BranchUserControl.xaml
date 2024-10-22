@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="PostSystemMVVM.View.BranchUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PostSystemMVVM.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!-- DataGrid for Branches -->
+        <DataGrid ItemsSource="{Binding Branches}" SelectedItem="{Binding SelectedBranch}" AutoGenerateColumns="True"
+                  IsReadOnly="False" CanUserAddRows="False" />
+
+        <!-- Command Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,0">
+            <Button Command="{Binding AddBranchCommand}" Content="Add Branch" Width="100" Margin="5"/>
+            <Button Command="{Binding EditBranchCommand}" Content="Edit Branch" Width="100" Margin="5"/>
+            <Button Command="{Binding RemoveBranchCommand}" Content="Remove Branch" Width="100" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
