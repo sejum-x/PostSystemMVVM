@@ -10,6 +10,9 @@
     <Window.Resources>
     </Window.Resources>
     <TabControl>
+        <TabItem Header="Order" Background="#fefffa">
+            <view:OrderUserControl/>
+        </TabItem>
         <TabItem Header="Branch" Background="#fefffa">
             <view:BranchUserControl/>
         </TabItem>

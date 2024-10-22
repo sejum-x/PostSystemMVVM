@@ -1,150 +1,63 @@
-﻿using System.Collections.ObjectModel;
-using PostSystemMVVM.Command;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 using PostSystemMVVM.Model;
-using System;
 
 namespace PostSystemMVVM.ViewModel
 {
-    class OrderViewModel : BaseViewModel
+    public class OrderViewModel : BaseViewModel
     {
-        public ObservableCollection<Order> Orders { get; set; }
-        private Order selectedOrder;
-        private Order editingOrder;
+        private string _trackNumber;
+        private string _sender;
+        private string _receiver;
+        private string _receiverAdress;
+        private double _price;
+        private PaymentStatus _paymentStatus;
+        private OrderStatus _orderStatus;
 
-        private CustomCommand addOrderCmd;
-        private CustomCommand removeOrderCmd;
-        private CustomCommand editOrderCmd;
-
-        public CustomCommand AddOrderCmd
+        public string TrackNumber
         {
-            get
-            {
-                return addOrderCmd ?? (addOrderCmd = new CustomCommand(
-                    obj =>
-                    {
-                        if (EditingOrder != null) // Якщо редагуємо існуюче замовлення
-                        {
-                            // Оновлюємо дані існуючого замовлення
-                            var index = Orders.IndexOf(SelectedOrder);
-                            Orders[index] = EditingOrder;
-                            EditingOrder = null; // Очищуємо редагування
-                        }
-                        else // Додаємо нове замовлення
-                        {
-                            // Перевіряємо наявність необхідних даних
-                            if (string.IsNullOrWhiteSpace(EditingOrder.Sender) || string.IsNullOrWhiteSpace(EditingOrder.Receiver))
-                            {
-                                // Можна додати обробку помилки, якщо дані не валідні
-                                return;
-                            }
-
-                            var newOrder = new Order
-                            {
-                                Id = Orders.Count + 1, // Автоматичне призначення ID
-                                Sender = EditingOrder.Sender,
-                                Receiver = EditingOrder.Receiver,
-                                PackageWeight = EditingOrder.PackageWeight,
-                                SenderBranch = EditingOrder.SenderBranch,
-                                ReceiverBranch = EditingOrder.ReceiverBranch,
-                                Price = EditingOrder.Price,
-                                OrderDate = DateTime.Now,
-                                PaymentType = EditingOrder.PaymentType,
-                                PaymentStatus = PaymentStatus.Pending,
-                                OrderStatus = OrderStatus.Pending
-                            };
-
-                            Orders.Add(newOrder);
-                            SelectedOrder = newOrder; // Встановлюємо вибране нове замовлення
-                            EditingOrder = null; // Очищуємо форму після додавання
-                        }
-                    },
-                    (obj) => true
-                ));
-            }
+            get => _trackNumber;
+            set { _trackNumber = value; OnPropertyChanged(nameof(TrackNumber)); }
         }
 
-
-
-        public CustomCommand RemoveOrderCmd
+        public string Sender
         {
-            get
-            {
-                return removeOrderCmd ?? (removeOrderCmd = new CustomCommand(
-                    obj =>
-                    {
-                        if (SelectedOrder != null)
-                        {
-                            Orders.Remove(SelectedOrder);
-                            SelectedOrder = null; // Очищуємо вибране
-                        }
-                    },
-                    (obj) => SelectedOrder != null
-                ));
-            }
+            get => _sender;
+            set { _sender = value; OnPropertyChanged(nameof(Sender)); }
         }
 
-
-        public CustomCommand EditOrderCmd
+        public string Receiver
         {
-            get
-            {
-                return editOrderCmd ?? (editOrderCmd = new CustomCommand(
-                    obj =>
-                    {
-                        if (SelectedOrder != null)
-                        {
-                            // Копіюємо дані вибраного замовлення в редаговане
-                            EditingOrder = new Order
-                            {
-                                Id = SelectedOrder.Id,
-                                Sender = SelectedOrder.Sender,
-                                Receiver = SelectedOrder.Receiver,
-                                PackageWeight = SelectedOrder.PackageWeight,
-                                SenderBranch = SelectedOrder.SenderBranch,
-                                ReceiverBranch = SelectedOrder.ReceiverBranch,
-                                Price = SelectedOrder.Price,
-                                OrderDate = SelectedOrder.OrderDate,
-                                PaymentType = SelectedOrder.PaymentType,
-                                PaymentStatus = SelectedOrder.PaymentStatus,
-                                OrderStatus = SelectedOrder.OrderStatus
-                            };
-                        }
-                    },
-                    (obj) => SelectedOrder != null
-                ));
-            }
+            get => _receiver;
+            set { _receiver = value; OnPropertyChanged(nameof(Receiver)); }
         }
 
-
-
-        public Order EditingOrder
+        public string ReceiverAdress
         {
-            get { return editingOrder; }
-            set
-            {
-                editingOrder = value;
-                OnPropertyChanged(nameof(EditingOrder));
-            }
+            get => _receiverAdress;
+            set { _receiverAdress = value; OnPropertyChanged(nameof(ReceiverAdress)); }
         }
 
-        public Order SelectedOrder
+        public double Price
         {
-            get { return selectedOrder; }
-            set
-            {
-                selectedOrder = value;
-                OnPropertyChanged(nameof(SelectedOrder));
-            }
+            get => _price;
+            set { _price = value; OnPropertyChanged(nameof(Price)); }
         }
 
-        public OrderViewModel()
+        public PaymentStatus PaymentStatus
         {
-            Orders = new ObservableCollection<Order>
-            {
-                new Order(1, "0966253699", "0966253699", 10, "Lviv", "Izyaslav", "08781238", 100, DateTime.Now, PaymentType.Card, PaymentStatus.Pending, OrderStatus.Pending),
-                new Order(2, "3562837627", "9872131023", 10, "Odesa", "Izyaslav", "08123138", 120, DateTime.Now, PaymentType.Cash, PaymentStatus.Paid, OrderStatus.InProgress),
-                new Order(3, "0966253699", "0966253699", 10, "Izyaslav", "Turka", "098237323", 80, DateTime.Now, PaymentType.Transfer, PaymentStatus.Canceled, OrderStatus.Canceled),
-            };
+            get => _paymentStatus;
+            set { _paymentStatus = value; OnPropertyChanged(nameof(PaymentStatus)); }
+        }
+
+        public OrderStatus OrderStatus
+        {
+            get => _orderStatus;
+            set { _orderStatus = value; OnPropertyChanged(nameof(OrderStatus)); }
         }
     }
 }

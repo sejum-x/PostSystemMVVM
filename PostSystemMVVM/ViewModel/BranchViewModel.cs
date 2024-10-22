@@ -1,69 +1,33 @@
-﻿using PostSystemMVVM.Command;
-using PostSystemMVVM.Model;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PostSystemMVVM.ViewModel
 {
-    class BranchViewModel : BaseViewModel
+    public class BranchViewModel : BaseViewModel
     {
-        public ObservableCollection<Branch> Branches { get; set; }
-        private Branch selectedBranch;
+        private int _id;
+        private string _name;
+        private string _location;
 
-        private CustomCommand addBranchCmd;
-        private CustomCommand removeBranchCmd;
-
-        public CustomCommand AddBranchCmd
+        public int Id
         {
-            get
-            {
-                return addBranchCmd ?? (addBranchCmd = new CustomCommand(
-                    obj =>
-                    {
-                        Branch branch = new Branch();
-                        Branches.Add(branch);
-                        SelectedBranch = branch;
-                    },
-                    (obj) => true
-                ));
-            }
+            get => _id;
+            set { _id = value; OnPropertyChanged(nameof(Id)); }
         }
 
-        public CustomCommand RemoveBranchCmd
+        public string Name
         {
-            get
-            {
-                return removeBranchCmd ?? (removeBranchCmd = new CustomCommand(
-                    obj =>
-                    {
-                        Branch branch = obj as Branch;
-                        if (branch != null)
-                        {
-                            Branches.Remove(branch);
-                        }
-                    },
-                    (obj) => Branches.Count > 0
-                ));
-            }
+            get => _name;
+            set { _name = value; OnPropertyChanged(nameof(Name)); }
         }
 
-        public Branch SelectedBranch
+        public string Location
         {
-            get { return selectedBranch; }
-            set
-            {
-                selectedBranch = value;
-                OnPropertyChanged("SelectedBranch");
-            }
-        }
-
-        public BranchViewModel()
-        {
-            Branches = new ObservableCollection<Branch>
-            {
-                // Initialize with sample data
-                new Branch(1, "Main Branch", "Lviv 123 Street"),
-                new Branch(2, "Secondary Branch", "Kyiv 456 Avenue"),
-            };
+            get => _location;
+            set { _location = value; OnPropertyChanged(nameof(Location)); }
         }
     }
 }

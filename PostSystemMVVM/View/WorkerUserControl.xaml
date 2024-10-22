@@ -17,14 +17,14 @@
                   SelectedItem="{Binding SelectedWorker}" 
                   AutoGenerateColumns="True" 
                   IsReadOnly="False" 
-                  CanUserAddRows="False"
-                  Style="{StaticResource ModernDataGridStyle}" />
+                  CanUserAddRows="False" 
+                  />
 
         <!-- Command Buttons -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ButtonPanelStyle}">
-            <Button Command="{Binding AddWorkerCommand}" Content="Add Worker" Style="{StaticResource ButtonStyle}" />
-            <Button Command="{Binding EditWorkerCommand}" Content="Edit Worker" Style="{StaticResource ButtonStyle}" />
-            <Button Command="{Binding RemoveWorkerCommand}" Content="Remove Worker" Style="{StaticResource ButtonStyle}" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Command="{Binding AddWorkerCommand}" Content="Add Worker" />
+            <Button Command="{Binding EditWorkerCommand}" Content="Edit Worker"  />
+            <Button Command="{Binding RemoveWorkerCommand}" Content="Remove Worker"  />
         </StackPanel>
     </Grid>
 </UserControl>

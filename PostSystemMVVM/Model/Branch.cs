@@ -2,48 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using PostSystemMVVM.ViewModel;
 
 namespace PostSystemMVVM.Model
 {
-    public class Branch : BaseViewModel
+    [DataContract]
+    public class Branch
     {
-        private int _id;
-        private string _name;
-        private string _location;
+        [DataMember]
+        public int Id { get; set; }
 
-        public Branch()
-        {
-            this._id = 0;
-            this._name = "";
-            this._location = "";
-        }
+        [DataMember]
+        public string Name { get; set; }
 
-        public Branch(int id, string name, string location)
-        {
-            this._id = id;
-            this._name = name;
-            this._location = location;
-        }
-
-        public int Id
-        {
-            get => _id;
-            set { _id = value; OnPropertyChanged(nameof(Id)); }
-        }
-
-        public string Name
-        {
-            get => _name;
-            set { _name = value; OnPropertyChanged(nameof(Name)); }
-        }
-
-        public string Location
-        {
-            get => _location;
-            set { _location = value; OnPropertyChanged(nameof(Location)); }
-        }
+        [DataMember]
+        public string Location { get; set; }
     }
 }

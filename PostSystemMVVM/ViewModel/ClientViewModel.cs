@@ -1,68 +1,56 @@
-﻿using System.Collections.ObjectModel;
-using PostSystemMVVM.Model;
-using PostSystemMVVM.Command;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PostSystemMVVM.ViewModel
 {
-    class ClientViewModel : BaseViewModel
+    public class ClientViewModel : BaseViewModel
     {
-        public ObservableCollection<Client> Clients { get; set; }
-        private Client selectedClient;
+        private int _id;
+        private string _fullName;
+        private string _email;
+        private string _contactNumber;
 
-        private CustomCommand addClientCmd;
-        private CustomCommand removeClientCmd;
-
-        public CustomCommand AddClientCmd
+        public int Id
         {
-            get
-            {
-                return addClientCmd ?? (addClientCmd = new CustomCommand(
-                    obj =>
-                    {
-                        Client client = new Client();
-                        Clients.Add(client);
-                        SelectedClient = client;
-                    },
-                    (obj) => true
-                ));
-            }
-        }
-
-        public CustomCommand RemoveClientCmd
-        {
-            get
-            {
-                return removeClientCmd ?? (removeClientCmd = new CustomCommand(
-                    obj =>
-                    {
-                        Client client = obj as Client;
-                        if (client != null)
-                        {
-                            Clients.Remove(client);
-                        }
-                    },
-                    (obj) => Clients.Count > 0
-                ));
-            }
-        }
-
-        public Client SelectedClient
-        {
-            get { return selectedClient; }
+            get => _id;
             set
             {
-                selectedClient = value;
-                OnPropertyChanged("SelectedClient");
+                _id = value;
+                OnPropertyChanged(nameof(Id));
             }
         }
 
-        public ClientViewModel()
+        public string FullName
         {
-            Clients = new ObservableCollection<Client>
+            get => _fullName;
+            set
             {
-                new Client(1, "Oleksandr", "Klymenko", "380661111111"),
-                new Client(2,"Mychailo", "Mychailov", "380662222222"),
-            };
+                _fullName = value;
+                OnPropertyChanged(nameof(FullName));
+            }
+        }
+
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+
+        public string ContactNumber
+        {
+            get => _contactNumber;
+            set
+            {
+                _contactNumber = value;
+                OnPropertyChanged(nameof(ContactNumber));
+            }
         }
     }
 }

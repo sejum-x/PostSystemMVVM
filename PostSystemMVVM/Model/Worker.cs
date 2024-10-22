@@ -1,61 +1,22 @@
-﻿using PostSystemMVVM.ViewModel;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+using PostSystemMVVM.ViewModel;
 
 namespace PostSystemMVVM.Model
 {
-    public class Worker : BaseViewModel
+    [DataContract]
+    public class Worker
     {
-        private int _id;
-        private string _fullName;
-        private string _email;
-        private string _contactNumber;
-        private WorkerPosition _position;
-
-        public Worker()
-        {
-            this._id = 0;
-            this._fullName = "";
-            this._email = "";
-            this._contactNumber = "";
-            this._position = WorkerPosition.Operator;
-        }
-
-        public Worker(int id, string fullName, string email, string contactNumber, WorkerPosition position)
-        {
-            this._id = id;
-            this._fullName = fullName;
-            this._email = email;
-            this._contactNumber = contactNumber;
-            this._position = position;
-        }
-
-        public int Id
-        {
-            get => _id;
-            set { _id = value; OnPropertyChanged(nameof(Id)); }
-        }
-
-        public string FullName
-        {
-            get => _fullName;
-            set { _fullName = value; OnPropertyChanged(nameof(FullName)); }
-        }
-
-        public string Email
-        {
-            get => _email;
-            set { _email = value; OnPropertyChanged(nameof(Email)); }
-        }
-
-        public string ContactNumber
-        {
-            get => _contactNumber;
-            set { _contactNumber = value; OnPropertyChanged(nameof(ContactNumber)); }
-        }
-
-        public WorkerPosition Position
-        {
-            get => _position;
-            set { _position = value; OnPropertyChanged(nameof(Position)); }
-        }
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string FullName { get; set; }
+        [DataMember]
+        public string Email { get; set; }
+        [DataMember]
+        public string ContactNumber { get; set; }
+        [DataMember]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public WorkerPosition Position { get; set; }
     }
 }
